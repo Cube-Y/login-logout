@@ -38,16 +38,19 @@ app.post('/login', (req, res) => {
     if (username === 'admin' && password === 'password') {
         req.session.regenerate((err) => {
             req.session.username = 'admin';
-            res.redirect('/');
+            res.redirect('/')
+            console.log('ログインに成功しました。');
         });
     } else {
         res.redirect('/login');
+        console.log('ログインに失敗しました。');
     }
 });
 
 app.get('/logout', (req, res) => {
     req.session.destroy((err) => {
         res.redirect('/');
+        console.log('ログアウトしました。');
     });
 });
 
@@ -60,7 +63,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-    res.send('Hello ' + req.session.username);
+    res.send('Welcome to  ' + req.session.username);
 });
 
 app.listen('3000', () => {
